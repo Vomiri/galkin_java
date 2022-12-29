@@ -1,0 +1,32 @@
+package com.mycompany.lab6;
+import java.util.Scanner;
+public class Lab6 {
+
+    public static void main(String[] args) {
+     Scanner scanner = new Scanner(System.in);
+     double annual_rate = 0;
+                System.out.println("Выберите тип кредита: 1-ипотечный, 2-автомобильный, 3-образовательный" );
+        double type_credita = scanner.nextDouble();
+        
+          if (type_credita ==1 ) {
+                annual_rate = 10;  //какой процент загуглился такой и выставил по кредитам
+            } else if (type_credita == 2 ) {
+                annual_rate = 14;
+            } else if (type_credita == 3 ) {
+                annual_rate = 3;
+            } else { System.out.println("ошибка ввода" );
+                System.exit(0); }
+          
+                System.out.println("кол-во лет " );
+        int term = scanner.nextInt();
+                System.out.println("сумма " );
+        int summa = scanner.nextInt();        
+                                
+        double month_rate = annual_rate/12/100;
+        int n = term*12;
+        double monthly_interest = summa * month_rate/(1-1/Math.pow(1+month_rate,n));
+        System.out.println ("ежемесячный платёж " + monthly_interest);
+        double total = n * monthly_interest;
+        System.out.println("стоимость кредита " + total);  
+}
+}
