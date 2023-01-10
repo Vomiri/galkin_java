@@ -1,0 +1,80 @@
+//калькулятор на java, после однократного подсчета результат становится первым числом и продолжается работа калькулятора
+// ввод числа1 -> ввод числа 2 -> ввод операции ->получаем результат -> ввод числа2 -> ввод операции -> получаем результат ->....
+// для завершения работы, на этапе выбора операции ввести "c"
+package vomir.calculator;
+
+import java.util.Scanner;
+
+public class Calculator {
+    static Scanner scanner = new Scanner(System.in);
+ 
+    public static void main(String[] args) {
+        int num1 = getInt();
+        int num2 = getInt();        
+        char operation = getOperation();
+        int result;      
+        
+        while ( true ) //цикл на на бесконечный подсчет, чтобы завершить работу в операции ввести "С"
+{
+    if ( operation == 'c' ) break;  
+    result  = calc(num1,num2,operation);
+    System.out.println("Результат операции: "+result);
+    num1 = result;
+    num2 = getInt(); 
+    operation = getOperation();      
+}
+        
+    }
+ 
+    public static int getInt(){
+        System.out.println("Введите число:");
+        int num;
+        if(scanner.hasNextInt()){
+            num = scanner.nextInt();
+        } else {
+            System.out.println("Вы допустили ошибку при вводе числа. Попробуйте еще раз.");
+            scanner.next();//рекурсия
+            num = getInt();
+        }
+        return num;
+    }
+ 
+    public static char getOperation(){
+        System.out.println("Введите операцию:");
+        char operation;
+        if(scanner.hasNext()){
+            operation = scanner.next().charAt(0);
+        } else {
+            System.out.println("Вы допустили ошибку при вводе операции. Попробуйте еще раз.");
+            scanner.next();//рекурсия
+            operation = getOperation();
+        }
+        return operation;
+    }
+ 
+    public static int calc(int num1, int num2, char operation){
+        int result;
+        
+        switch (operation){
+            case '+':
+                result = num1+num2;
+                break;
+            case '-':
+                result = num1-num2;
+                break;
+            case '*':
+                result = num1*num2;
+                break;
+            case '/':
+                result = num1/num2;
+                break;
+            case 'c':
+            operation = 'c';
+            return operation;
+            default:
+                System.out.println("Операция не распознана. Повторите ввод.");
+                result = calc(num1, num2, getOperation());//рекурсия
+        }
+        return result;
+    }
+}
